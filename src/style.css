@@ -314,3 +314,74 @@ kbd {
 .hidden {
   display: none !important;
 }
+
+/* Mobile Controls */
+#mobile-controls {
+  display: none;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 50;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  #mobile-controls {
+    display: flex;
+  }
+  .controls-info {
+    display: none !important; /* Hide keyboard info on mobile */
+  }
+  .dashboard {
+    bottom: auto;
+    top: 20px;
+    left: 20px;
+  }
+  #minimap-container {
+    bottom: auto;
+    top: 20px;
+    right: 20px;
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.pedal {
+  pointer-events: auto;
+  width: 100px;
+  height: 140px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+  color: white;
+  font-size: 1.4rem;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border: 2px solid rgba(255,255,255,0.2);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.gas-pedal {
+  background: linear-gradient(to bottom, #38ef7d, #11998e);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+  align-items: flex-end;
+  padding-bottom: 20px;
+}
+
+.brake-pedal {
+  background: linear-gradient(to bottom, #ff416c, #ff4b2b);
+  width: 120px;
+  height: 90px;
+  align-self: flex-end;
+}
+
+.pedal:active, .pedal.active {
+  transform: translateY(5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}

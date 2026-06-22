@@ -72,6 +72,23 @@ window.addEventListener('keyup', (e) => {
   if (k === 'ArrowRight') keys.ArrowRight = false;
 }, true);
 
+// Mobile Controls
+const btnGas = document.getElementById('btn-gas');
+const btnBrake = document.getElementById('btn-brake');
+
+if (btnGas && btnBrake) {
+  const addPedalEvents = (btn, key) => {
+    btn.addEventListener('touchstart', (e) => { e.preventDefault(); keys[key] = true; btn.classList.add('active'); }, {passive: false});
+    btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[key] = false; btn.classList.remove('active'); }, {passive: false});
+    btn.addEventListener('mousedown', (e) => { e.preventDefault(); keys[key] = true; btn.classList.add('active'); });
+    btn.addEventListener('mouseup', (e) => { e.preventDefault(); keys[key] = false; btn.classList.remove('active'); });
+    btn.addEventListener('mouseleave', (e) => { e.preventDefault(); keys[key] = false; btn.classList.remove('active'); });
+  };
+  
+  addPedalEvents(btnGas, 'w');
+  addPedalEvents(btnBrake, 's');
+}
+
 // Setup Initializer
 const envApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
@@ -320,23 +337,31 @@ function updatePhysics(dt) {
 }
 
 function updateCamera(dt) {
-  // Smoothly update POV to match steering
   const currentPov = panorama.getPov();
+  const isTurningLeft = keys.a || keys.ArrowLeft;
+  const isTurningRight = keys.d || keys.ArrowRight;
   
-  // Calculate dynamic zoom based on speed for warp effect (1 is default, max zoom out is 0)
-  // Actually, decreasing zoom widens the FOV. 
-  // Let's use a subtle change: base zoom = 1.0, max speed zoom = 0.5
+  if (isTurningLeft || isTurningRight) {
+    panorama.setPov({
+      heading: state.heading,
+      pitch: currentPov.pitch, // Keep current pitch
+      zoom: currentPov.zoom
+    });
+  } else {
+    // If not steering with keyboard, update state heading from the panorama so user can swipe to look around
+    state.heading = currentPov.heading;
+  }
+  
+  // Calculate dynamic zoom based on speed for warp effect
   const targetZoom = 1.0 - (state.speed / state.maxSpeed) * 0.5;
   
   // Interpolate zoom smoothly
   const currentZoom = currentPov.zoom || 1;
   const smoothZoom = currentZoom + (targetZoom - currentZoom) * 5 * dt;
 
-  panorama.setPov({
-    heading: state.heading,
-    pitch: currentPov.pitch, // Keep current pitch or could simulate bumps
-    zoom: smoothZoom
-  });
+  if (Math.abs(smoothZoom - currentZoom) > 0.01) {
+    panorama.setZoom(smoothZoom);
+  }
 }
 
 function updateUI() {
