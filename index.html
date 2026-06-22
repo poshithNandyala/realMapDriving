@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Street View Bike Simulator</title>
+    <!-- Use Inter font for a premium look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Setup overlay where user enters API Key and Location -->
+    <div id="setup-overlay" class="overlay active">
+      <div class="setup-modal">
+        <h1>Bike Simulator</h1>
+        <p>Experience the world on two wheels.</p>
+        
+        <div id="step-1">
+          <div class="input-group">
+            <label for="api-key">Google Maps API Key</label>
+            <input type="text" id="api-key" placeholder="AIzaSy..." />
+          </div>
+          <button id="load-api-btn">Next</button>
+          <p class="subtext">Requires 'Maps JavaScript API' enabled.</p>
+        </div>
+
+        <div id="step-2" class="hidden">
+          <div class="input-group">
+            <label for="location-search">Where to?</label>
+            <input type="text" id="location-search" placeholder="e.g. Kurnool, India" />
+          </div>
+          <button id="start-btn">Start Riding</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="street-view"></div>
+
+    <div id="hud" class="hidden">
+      <div class="dashboard">
+        <div class="speedometer">
+          <div class="speed-value" id="speed-display">0</div>
+          <div class="speed-unit">KM/H</div>
+        </div>
+        <div class="controls-info">
+          <div><kbd>W</kbd> Accelerate</div>
+          <div><kbd>S</kbd> Brake</div>
+          <div><kbd>A</kbd> <kbd>D</kbd> Steer</div>
+        </div>
+      </div>
+      <!-- Map Container -->
+      <div id="minimap-container">
+        <div id="minimap"></div>
+      </div>
+    </div>
+    
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
