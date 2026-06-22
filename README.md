@@ -39,12 +39,34 @@ Because this app renders the real world, it requires a Google Maps API Key to fe
 3. Open a terminal in the project folder and run:
    ```bash
    npm install
+   ```
+4. **Setup your API Key:**
+   - Create a file named `.env.local` in the root of your project folder.
+   - Add your Google Maps API key to it like this:
+     ```env
+     VITE_GOOGLE_MAPS_API_KEY=your_actual_api_key_here
+     ```
+   - *(Note: Make sure the "Maps JavaScript API" is enabled in your Google Cloud Console).*
+5. **Start the server:**
+   ```bash
    npm run dev
    ```
-4. Open your browser to the local server address (usually `http://localhost:5173`).
-5. **Enter your Google Maps API Key** when prompted. *(Note: Make sure the "Maps JavaScript API" is enabled in your Google Cloud Console).*
-6. **Search for a location** (e.g., "Kurnool", "Times Square", "Eiffel Tower").
-7. Hit **Start Riding** and enjoy the trip!
+6. Open your browser to the local server address (usually `http://localhost:5173`).
+7. **Search for a location** (e.g., "Kurnool", "Times Square", "Eiffel Tower").
+8. Hit **Start Riding** and enjoy the trip!
+
+## 🚀 Deployment
+
+This project is built with standard HTML/JS via Vite, making it incredibly easy to deploy to static hosting services like Vercel, Netlify, or GitHub Pages.
+
+**Deploying to Vercel/Netlify:**
+1. Push your code to a GitHub repository.
+2. Go to Vercel or Netlify and import your repository.
+3. In the deployment settings, add an **Environment Variable**:
+   - **Key:** `VITE_GOOGLE_MAPS_API_KEY`
+   - **Value:** `your_actual_api_key_here`
+4. The build command is `npm run build` and the output directory is `dist`.
+5. Click **Deploy**! Your app will be live and your API key will be safely bundled into the production app.
 
 ---
 *Built with Vanilla JS, Vite, and the Google Maps API.*

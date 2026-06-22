@@ -73,6 +73,13 @@ window.addEventListener('keyup', (e) => {
 }, true);
 
 // Setup Initializer
+const envApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
+if (envApiKey) {
+  step1.classList.add('hidden');
+  loadGoogleMaps(envApiKey);
+}
+
 loadApiBtn.addEventListener('click', () => {
   const key = apiKeyInput.value.trim();
   if (key) {
